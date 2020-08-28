@@ -2,7 +2,7 @@
 
 ### Description
 
-    Download all information about customers from Sellers account and save them to csv file. Optionally, can send email with updated customers file. Existed file will be updated with new customers.
+    Download information about customers from sellers account and save them to csv file. Optionally, can send email with updated customers file. Existed file will be updated with new customers.
 
 ### Requirements:
  
