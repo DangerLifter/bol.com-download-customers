@@ -1,0 +1,36 @@
+{
+    "name": "dmitryp/bol-com-customers-downloader",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Dmitry Pismennyy",
+            "email": "dalifter2006@mail.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:dangerlifter/bolcom_retailerapi.git"
+        }
+    ],
+    "config": {
+        "platform": {
+            "php": "7.4.0"
+        }
+    },
+    "require": {
+        "symfony/console": "^5.1",
+        "bol-com/retailer-api": "dev-master",
+        "phpmailer/phpmailer": "dev-master",
+        "monolog/monolog": "^2.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^5.1@dev"
+    }
+}
