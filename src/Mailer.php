@@ -53,7 +53,7 @@ final class Mailer
 
 	private static function setupSMTP(PHPMailer $mail): PHPMailer
 	{
-		$mail->SMTPDebug = 3;
+//		$mail->SMTPDebug = 3;
 		$mail->isSMTP();
 		$mail->Host = SMTP_HOST;
 		$mail->SMTPAuth = true;
