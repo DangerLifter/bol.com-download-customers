@@ -18,10 +18,14 @@ class DownloadCustomersCommand extends Command
 {
 	/** @var string */
 	protected static $defaultName = 'download-customers';
+	private $_config = [];
 
 	protected function configure()
 	{
+		global $API_CONFIG;
+		$this->_config = $API_CONFIG;
 		$this
+			->addOption('account', 'a', InputOption::VALUE_OPTIONAL, 'Provide account label: '.implode(', ', $this->getAccountLabels()))
 			->addOption('send-email', 'e', InputOption::VALUE_NONE, 'Send email ')
 		;
 	}
@@ -29,15 +33,16 @@ class DownloadCustomersCommand extends Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$sendEmail = $input->getOption('send-email');
+		$accountName = strtolower($input->getOption('account'));
 		$log = __DIR__.'/../../var/download-customers.log';
 
 		$logger = new Logger('DownloadCustomer');
 		$logger->pushHandler(new PsrHandler(new ConsoleLogger($output)));
 		$logger->pushHandler(new StreamHandler($log, Logger::INFO));
 
-		global $API_CONFIG;
-		foreach ($API_CONFIG as $configData) {
-			$clientName = $configData['clientName'];
+		foreach ($this->_config as $configData) {
+			$clientName = strtolower($configData['clientName']);
+			if ($accountName && $accountName !== $clientName) continue;
 			$customersFile = __DIR__.'/../../var/'.$clientName.'_customers.csv';
 			$tokenPath = '/tmp/bol_customer_downloader_'.$clientName.'.json';
 			$config = new \BolCom\RetailerApi\Client\ClientConfig(
@@ -47,6 +52,7 @@ class DownloadCustomersCommand extends Command
 				$tokenPath
 			);
 
+			$logger->info('Start proceed account: '.$clientName);
 			try {
 				try {
 					$this->downloadForClient($customersFile, $config, $logger);
@@ -64,6 +70,11 @@ class DownloadCustomersCommand extends Command
 			}
 		}
 		return 0;
+	}
+
+	private function getAccountLabels(): array
+	{
+		return array_map(function ($v) {return $v['clientName'];}, $this->_config);
 	}
 
 	private function downloadForClient(string $customersFile, ClientConfigInterface $config, LoggerInterface $logger)
