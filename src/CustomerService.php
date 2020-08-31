@@ -17,7 +17,9 @@ class CustomerService implements LoggerAwareInterface
 {
 	use LoggerAwareTrait;
 
-	private MessageBusInterface $_messageBus;
+//	private MessageBusInterface $_messageBus; For php 7.2
+	/** @var MessageBusInterface */
+	private $_messageBus;
 
 	public function __construct(MessageBusInterface $_messageBus)
 	{
