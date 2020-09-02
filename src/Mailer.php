@@ -44,7 +44,7 @@ final class Mailer
 		$mail->From = EMAIL_FROM;
 		$mail->FromName = "Bol.com Customers Downloader";
 		if (is_array(EMAIL_TO)) {
-			array_map(fn($to) => $mail->addAddress($to), EMAIL_TO);
+			array_map(function($to) use ($mail) {$mail->addAddress($to);}, EMAIL_TO);
 		} elseif (is_string(EMAIL_TO)) {
 			$mail->addAddress(EMAIL_TO);
 		}
