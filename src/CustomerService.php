@@ -8,6 +8,7 @@ use BolCom\RetailerApi\Model\Order\OrderId;
 use BolCom\RetailerApi\Model\Shipment\Query\GetShipment;
 use BolCom\RetailerApi\Model\Shipment\Query\GetShipmentList;
 use BolCom\RetailerApi\Model\Shipment\Shipment;
+use BolCom\RetailerApi\Model\Shipment\ShipmentId;
 use BolCom\RetailerApi\Model\Shipment\ShipmentList;
 use BolCom\RetailerApi\Model\Shipment\ShipmentListItem;
 use Psr\Log\LoggerAwareInterface;

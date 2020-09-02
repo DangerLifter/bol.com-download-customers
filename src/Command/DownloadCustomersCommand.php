@@ -51,6 +51,9 @@ class DownloadCustomersCommand extends Command
 				false,
 				$tokenPath
 			);
+			if ($configData['proxy']) {
+				$config->setProxy($configData['proxy']);
+			}
 
 			$logger->info('Start proceed account: '.$clientName);
 			try {
@@ -89,8 +92,6 @@ class DownloadCustomersCommand extends Command
 		try {
 			$customerService->updateCustomers($customers, $callback);
 			$logger->info('Done');
-		} catch (\Exception $e) {
-			$logger->critical('Exception: '.$e->getMessage(), ['e' => $e]);
 		} finally {
 			fclose($h);
 		}

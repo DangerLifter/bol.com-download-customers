@@ -11,7 +11,7 @@ final class Mailer
 	public static function sendError(string $error): void
 	{
 		$mail = self::createEmail();
-		$mail->Subject = 'Bol.com Customers';
+		$mail->Subject = 'Bol.com Customers Downloader Error';
 		$mail->Body = 'Downloading customers ended with error:'.$error;
 		if (!$mail->send()) {
 			throw new \RuntimeException('Email sent failed:'.$mail->ErrorInfo);

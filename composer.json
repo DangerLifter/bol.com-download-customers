@@ -14,12 +14,8 @@
             "url": "git@github.com:dangerlifter/bolcom_retailerapi.git"
         }
     ],
-    "config": {
-        "platform": {
-            "php": "7.2.0"
-        }
-    },
     "require": {
+        "php": "^7.2",
         "symfony/console": "^5.1",
         "bol-com/retailer-api": "dev-master",
         "phpmailer/phpmailer": "dev-master",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6776bd5047d8208912dc8d0b4609dd5e",
+    "content-hash": "1db9e3a76954cc5eb5394d363dcec79f",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -74,12 +74,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/DangerLifter/BolCom_RetailerApi.git",
-                "reference": "053366b87beaf30cf19fbb4267e542655cc02988"
+                "reference": "e6d977c751ef9c9482bbeec33961ac79201d54c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DangerLifter/BolCom_RetailerApi/zipball/053366b87beaf30cf19fbb4267e542655cc02988",
-                "reference": "053366b87beaf30cf19fbb4267e542655cc02988",
+                "url": "https://api.github.com/repos/DangerLifter/BolCom_RetailerApi/zipball/e6d977c751ef9c9482bbeec33961ac79201d54c2",
+                "reference": "e6d977c751ef9c9482bbeec33961ac79201d54c2",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +115,7 @@
             "support": {
                 "source": "https://github.com/DangerLifter/BolCom_RetailerApi/tree/master"
             },
-            "time": "2020-08-28T08:32:40+00:00"
+            "time": "2020-09-02T05:34:01+00:00"
         },
         {
             "name": "caseyamcl/guzzle_retry_middleware",
@@ -1741,9 +1741,8 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "7.4.0"
-    }
+    "platform": {
+        "php": "^7.2"
+    },
+    "platform-dev": []
 }
