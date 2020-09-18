@@ -29,8 +29,8 @@ $API_CONFIG = [
 	],
 ];
 
-// Email addresses used to send email from and to
-define('EMAIL_TO', ['']);
+// Email addresses used to send email from and to (list of email addresses)
+define('EMAIL_TO', []);
 define('EMAIL_FROM', '');
 
 // Email SMTP settings to send emails

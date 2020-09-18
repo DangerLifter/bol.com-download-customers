@@ -26,12 +26,24 @@ class DownloadCustomersCommand extends Command
 		$this->_config = $API_CONFIG;
 		$this
 			->addOption('account', 'a', InputOption::VALUE_OPTIONAL, 'Provide account label: '.implode(', ', $this->getAccountLabels()))
-			->addOption('send-email', 'e', InputOption::VALUE_NONE, 'Send email ')
+			->addOption('send-email', 's', InputOption::VALUE_NONE, 'Send email ')
+			->addOption('address', 'e', InputOption::VALUE_OPTIONAL, 'Send email to given address')
 		;
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		$emailsTo = [];
+		if ($input->getOption('address')) {
+			$emailsTo[] = $input->getOption('address');
+		} elseif(defined('EMAIL_TO')) {
+			if (is_array(EMAIL_TO)) {
+				$emailsTo = EMAIL_TO;
+			} else {
+				$emailsTo = [EMAIL_TO];
+			}
+		}
+
 		$sendEmail = $input->getOption('send-email');
 		$accountName = strtolower($input->getOption('account'));
 		$log = __DIR__.'/../../var/download-customers.log';
@@ -58,14 +70,14 @@ class DownloadCustomersCommand extends Command
 			$logger->info('Start proceed account: '.$clientName);
 			try {
 				try {
-					$this->downloadForClient($customersFile, $config, $logger);
+					//$this->downloadForClient($customersFile, $config, $logger);
 				} catch (\Exception $e) {
 					$logger->critical('Exception: '.$e->getMessage(), ['e' => $e]);
-					Mailer::sendError($e->getMessage());
+					Mailer::sendError($e->getMessage(), $emailsTo);
 				}
 
 				if ($sendEmail) {
-					Mailer::sendCustomers($customersFile);
+					Mailer::sendCustomers($customersFile, $emailsTo);
 					$logger->info('Customers have sent to email');
 				}
 			} catch (\Exception $e) {

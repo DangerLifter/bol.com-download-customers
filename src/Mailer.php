@@ -8,9 +8,9 @@ final class Mailer
 	/**
 	 * @throws \PHPMailer\PHPMailer\Exception
 	 */
-	public static function sendError(string $error): void
+	public static function sendError(string $error, array $emailsTo): void
 	{
-		$mail = self::createEmail();
+		$mail = self::createEmail($emailsTo);
 		$mail->Subject = 'Bol.com Customers Downloader Error';
 		$mail->Body = 'Downloading customers ended with error:'.$error;
 		if (!$mail->send()) {
@@ -21,9 +21,9 @@ final class Mailer
 	/**
 	 * @throws \PHPMailer\PHPMailer\Exception
 	 */
-	public static function sendCustomers(string $customersFile): void
+	public static function sendCustomers(string $customersFile, array $emailsTo): void
 	{
-		$mail = self::createEmail();
+		$mail = self::createEmail($emailsTo);
 		$mail->Subject = 'Bol.com Customers';
 		$mail->Body = 'Updated file with customers list is attached.';
 		$mail->addAttachment($customersFile);
@@ -35,19 +35,15 @@ final class Mailer
 	/**
 	 * @throws \PHPMailer\PHPMailer\Exception
 	 */
-	private static function createEmail(): PHPMailer
+	private static function createEmail(array $emailsTo): PHPMailer
 	{
-		if (!defined('EMAIL_TO') || !defined('EMAIL_FROM')) {
+		if (!$emailsTo || !defined('EMAIL_FROM')) {
 			throw new \RuntimeException('Setup email is invalid');
 		}
 		$mail = self::setupSMTP(new PHPMailer());
 		$mail->From = EMAIL_FROM;
 		$mail->FromName = "Bol.com Customers Downloader";
-		if (is_array(EMAIL_TO)) {
-			array_map(function($to) use ($mail) {$mail->addAddress($to);}, EMAIL_TO);
-		} elseif (is_string(EMAIL_TO)) {
-			$mail->addAddress(EMAIL_TO);
-		}
+		array_map(function($to) use ($mail) {$mail->addAddress($to);}, $emailsTo);
 		return $mail;
 	}
 

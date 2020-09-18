@@ -34,10 +34,16 @@ Csv file with exported customers can be found in file:
 
 **[[project_folder]]/var/[[client_label_name]].csv**
 
-* Export customers and send csv file by email:
+* Export customers and send csv file to email addresses defined in config:
  
 ```bash
 php ./bin/console.php download-customers --send-email
+```
+
+* Export customers and send csv file to custom email address instead of one in config:
+ 
+```bash
+php ./bin/console.php download-customers --send-email --address=custom-address@example.org
 ```
 
 * Additional information about export :
